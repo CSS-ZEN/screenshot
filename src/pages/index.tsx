@@ -2,7 +2,7 @@
 // tslint:disable: no-magic-numbers
 
 import Head from 'next/head'
-import {useState} from 'react'
+import {ChangeEventHandler, useState} from 'react'
 import styles from '../styles/Home.module.css'
 
 
@@ -25,7 +25,7 @@ export default function Home () {
         }).then(res => res.json())
     }
 
-    const handleInput = e => setWebsiteURL(e.target.value)
+    const handleInput: ChangeEventHandler<HTMLInputElement> = e => setWebsiteURL(e.target.value)
 
     return (
         <div className={styles.container}>

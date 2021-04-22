@@ -6,7 +6,7 @@ class Config {
 
     public get REGION () {return readOptionalValue('REGION')}
 
-    public get BUCKET () {return readOptionalValue('BUCKET')}
+    public get BUCKET () {return readEssentialValue('BUCKET')}
 
     public get AWS_S3_EXPIRE_LIFTIME () {return readOptionalValue('AWS_S3_EXPIRE_LIFTIME', '60')}
 

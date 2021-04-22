@@ -16,8 +16,7 @@ async function handle (options: IRequestOptions) {
     await uploadAwsS3(filename, fileBuffer)
 }
 
-export default new RequestQueue({
+export default new RequestQueue(handle, {
     maxLimit: 1,
-    requestApi: handle,
     needChange2Promise: false,
 })

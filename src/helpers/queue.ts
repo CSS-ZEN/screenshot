@@ -5,16 +5,17 @@ import pify from 'pify'
 export default class RequestQueue {
     public maxLimit: number
     public retry: number
-    public requestApi: AsyncGeneratorFunction
     public requestQueue: CallableFunction[]
     public currentConcurrent: number
 
-    public constructor ({
-        requestApi,
-        maxLimit = 5,
-        retry = 1,
-        needChange2Promise = false,
-    }) {
+    public constructor (
+        public requestApi: (...args: ANY[]) => Promise<ANY>,
+        {
+            maxLimit = 5,
+            retry = 1,
+            needChange2Promise = false,
+        }
+    ) {
         // 最大并发量
         this.maxLimit = maxLimit
         // 请求队列,若当前请求并发量已经超过maxLimit,则将该请求加入到请求队列中
