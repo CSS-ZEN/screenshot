@@ -1,60 +1,32 @@
-export const REGION = process.env.REGION
-export const BUCKET = process.env.BUCKET
-export const NEXT_AWSHOST = process.env.NEXT_AWSHOST
-
-type IConfig<TSetting extends IConfigSettings> = {
-    [key in keyof TSetting]: TSetting[key] extends IOptionalConfigSetting ? (string | undefined) : string
-}
-
-interface IConfigSettingBase { }
-interface IOptionalConfigSetting extends IConfigSettingBase {
-    optional: true
-}
-
-type IConfigSetting = IConfigSettingBase | IOptionalConfigSetting
-
-type IConfigSettings = Record<string, IConfigSetting>
 
 class Config {
-    public constructor(private config: IConfigSettings) {
-        this.setUpSettings()
-    }
+    public get ACCESS_KEY_ID () {return readEssentialValue('ACCESS_KEY_ID')}
 
-    private setUpSettings() {
-        for (const key in this.config) {
-            Object.defineProperty(this, key, {
-                get: () => {
-                    return this.readValue(key)
-                }
-            })
-        }
-    }
+    public get SCERET_ACCESS_KEY () {return readEssentialValue('SCERET_ACCESS_KEY')}
 
-    private readValue(key: string) {
-        if (this.isOptional(this.config[key])) return this.readOptionalValue(key)
-        return this.readEssentialValue(key)
-    }
+    public get REGION () {return readOptionalValue('REGION')}
 
-    private isOptional(configSetting: IConfigSetting): configSetting is IOptionalConfigSetting {
-        return !!(configSetting as any || {}).optional
-    }
+    public get BUCKET () {return readEssentialValue('BUCKET')}
 
-    private readOptionalValue(key: string) {
-        return process.env[key]
-    }
+    public get CHROMIUM_EXECUTABLE () {return readOptionalValue('CHROMIUM_EXECUTABLE')}
 
-    private readEssentialValue(key: string) {
-        const value = process.env[key]
-        if (value === undefined) throw new Error(`Essential config ${key} unavailable`)
+    public get AWS_S3_EXPIRE_LIFTIME () {return readOptionalValue('AWS_S3_EXPIRE_LIFTIME', '60')}
 
-        return value
-    }
+    public get NEXT_AWSHOST () {return readOptionalValue('NEXT_AWSHOST')}
 }
 
-const genConfig: <TSettings extends IConfigSettings>(settings: TSettings) => IConfig<TSettings> = settings => new Config(settings) as any
+function readOptionalValue (key: string, fallback?: string) {
+    const value = process.env[key]
+    if (value === undefined) return fallback
 
-export default genConfig({
-    ACCESS_KEY_ID: {},
-    SCERET_ACCESS_KEY: {},
-    NEXT_HOST: { optional: true }
-})
+    return value
+}
+
+function readEssentialValue (key: string) {
+    const value = process.env[key]
+    if (value === undefined) throw new Error(`Essential config ${key} unavailable`)
+
+    return value
+}
+
+export default new Config()

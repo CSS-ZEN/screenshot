@@ -1,22 +1,24 @@
-import AWS from 'aws-sdk'
-import { REGION, BUCKET } from 'src/config'
-import Config from 'src/config'
 
-const S3 = new AWS.S3({
-    region: REGION,
+import AWS from 'aws-sdk'
+import CONFIG from 'src/config'
+
+
+export const {BUCKET} = CONFIG
+
+export const S3 = new AWS.S3({
+    region: CONFIG.REGION,
     credentials: {
-        accessKeyId: Config.ACCESS_KEY_ID,
-        secretAccessKey: Config.SCERET_ACCESS_KEY
-    }
+        accessKeyId: CONFIG.ACCESS_KEY_ID,
+        secretAccessKey: CONFIG.SCERET_ACCESS_KEY,
+    },
 })
 
-export async function getUrl(fileName: string): Promise<string> {
+export async function getUrl (fileName: string): Promise<string> {
     const params = {
-        Bucket: BUCKET,
+        Bucket: CONFIG.BUCKET,
         Key: fileName,
-        Expires: 60
+        Expires: Number(CONFIG.AWS_S3_EXPIRE_LIFTIME),
     }
     const signedURL = S3.getSignedUrl('getObject', params)
     return signedURL
 }
-export { S3, BUCKET }
