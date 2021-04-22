@@ -857,11 +857,6 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.41.tgz?cache=0&sync_timestamp=1618543947232&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.41.tgz"
   integrity sha1-0Lk52Uwde9U9BIJK9F8RObjEVhU=
 
-"@types/pify@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.npm.taobao.org/@types/pify/download/@types/pify-5.0.0.tgz"
-  integrity sha1-UOrJJyLfmuAsqp9RRgnLjRj5rNc=
-
 "@types/prop-types@*":
   version "15.7.3"
   resolved "https://registry.npm.taobao.org/@types/prop-types/download/@types/prop-types-15.7.3.tgz?cache=0&sync_timestamp=1613380216163&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fprop-types%2Fdownload%2F%40types%2Fprop-types-15.7.3.tgz"
@@ -2227,11 +2222,6 @@ picomatch@^2.0.4, picomatch@^2.2.1:
   version "2.2.3"
   resolved "https://registry.npm.taobao.org/picomatch/download/picomatch-2.2.3.tgz?cache=0&sync_timestamp=1618049925917&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpicomatch%2Fdownload%2Fpicomatch-2.2.3.tgz"
   integrity sha1-RlVH81nMwgbTxI5Goby4m/fuYZ0=
-
-pify@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npm.taobao.org/pify/download/pify-5.0.0.tgz"
-  integrity sha1-H17KP16H6+wozG1UoOSq8ArMEn8=
 
 pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   version "4.2.0"
