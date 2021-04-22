@@ -17,7 +17,7 @@ export async function getUrl (fileName: string): Promise<string> {
     const params = {
         Bucket: CONFIG.BUCKET,
         Key: fileName,
-        Expires: 60,
+        Expires: Number(CONFIG.AWS_S3_EXPIRE_LIFTIME),
     }
     const signedURL = S3.getSignedUrl('getObject', params)
     return signedURL

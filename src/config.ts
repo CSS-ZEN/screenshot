@@ -4,11 +4,11 @@ class Config {
 
     public get SCERET_ACCESS_KEY () {return readEssentialValue('SCERET_ACCESS_KEY')}
 
-    public get NEXT_HOST () {return readOptionalValue('NEXT_HOST')}
-
     public get REGION () {return readOptionalValue('REGION')}
 
     public get BUCKET () {return readOptionalValue('BUCKET')}
+
+    public get AWS_S3_EXPIRE_LIFTIME () {return readOptionalValue('AWS_S3_EXPIRE_LIFTIME', '60')}
 
     public get NEXT_AWSHOST () {return readOptionalValue('NEXT_AWSHOST')}
 }
