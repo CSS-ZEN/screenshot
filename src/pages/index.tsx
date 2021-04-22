@@ -7,22 +7,12 @@ import styles from '../styles/Home.module.css'
 
 
 export default function Home () {
-    const [websiteURL, setWebsiteURL] = useState('https://czg.vercel.app/')
+    const [websiteURL, setWebsiteURL] = useState('https://czg.vercel.app')
 
-    const [imageURL, setImageURL] = useState(`/api/snapshot/desktop/index.img?url=https://czg.vercel.app/`)
+    const [imageURL, setImageURL] = useState(`/api/snapshot/desktop/index.img?url=${websiteURL}`)
 
     async function submitWebsiteURL () {
-        const filename = `snapshot/home/index${Math.floor(Math.random() * 20)}.png`
-        fetch('/api/screenshot', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                url: websiteURL,
-                filename,
-            }),
-        }).then(res => res.json())
+        setImageURL(`/api/snapshot/desktop/index.img?url=${websiteURL}`)
     }
 
     const handleInput: ChangeEventHandler<HTMLInputElement> = e => setWebsiteURL(e.target.value)

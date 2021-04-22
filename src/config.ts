@@ -8,6 +8,8 @@ class Config {
 
     public get BUCKET () {return readEssentialValue('BUCKET')}
 
+    public get CHROMIUM_EXECUTABLE () {return readOptionalValue('CHROMIUM_EXECUTABLE')}
+
     public get AWS_S3_EXPIRE_LIFTIME () {return readOptionalValue('AWS_S3_EXPIRE_LIFTIME', '60')}
 
     public get NEXT_AWSHOST () {return readOptionalValue('NEXT_AWSHOST')}

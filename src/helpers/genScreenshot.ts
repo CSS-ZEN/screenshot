@@ -4,6 +4,8 @@
 import chromium from 'chrome-aws-lambda'
 import puppeteerLib from 'puppeteer'
 
+import CONFIG from 'src/config'
+
 
 export type DeviceModel = 'mobile' | 'desktop'
 
@@ -57,7 +59,7 @@ export async function getBrowserInstance () {
         args: chromium.args,
         // args: ["--screenshot", "--virtual-time-budget=25000"],
         headless: true,
-        executablePath: await chromium.executablePath || undefined,
+        executablePath: await chromium.executablePath || CONFIG.CHROMIUM_EXECUTABLE,
         ignoreHTTPSErrors: true,
     })
     return browser
