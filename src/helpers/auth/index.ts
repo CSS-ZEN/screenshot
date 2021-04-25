@@ -1,18 +1,15 @@
 import { IncomingMessage, ServerResponse } from 'http'
 import auth from 'basic-auth'
-
+import HTTPStatusCodes from '../statusCode'
 import {
     compareCredentials,
     parseCredentials,
     AuthCredentials,
 } from './credentials'
-import { pathInRequest } from './path'
 
 export type MiddlewareOptions = {
     realm?: string
     users?: AuthCredentials
-    includePaths?: string[]
-    excludePaths?: string[]
 }
 
 /**
@@ -25,28 +22,12 @@ const basicAuthMiddleware = async (
     res: ServerResponse,
     {
         realm = 'protected',
-        users = [],
-        includePaths = ['/'],
-        excludePaths = [],
+        users = []
     }: MiddlewareOptions = {}) => {
     // Check if credentials are set up
     const environmentCredentials = process.env.BASIC_AUTH_CREDENTIALS || ''
     if (environmentCredentials.length === 0 && users.length === 0) {
         // No credentials set up, continue rendering the page as normal
-        return { ok: true, result: null }
-    }
-
-    // Retrieve paths from environment credentials or use arguments
-    const includeAuth = process.env.BASIC_AUTH_PATHS
-        ? process.env.BASIC_AUTH_PATHS.split(';')
-        : includePaths
-    const excludeAuth = process.env.BASIC_AUTH_EXCLUDE_PATHS
-        ? process.env.BASIC_AUTH_EXCLUDE_PATHS.split(';')
-        : excludePaths
-
-    // Check whether the path of the request should even be checked
-    if (pathInRequest(excludeAuth, req) || !pathInRequest(includeAuth, req)) {
-        // Current path not part of the checked settings
         return { ok: true, result: null }
     }
 
@@ -57,7 +38,7 @@ const basicAuthMiddleware = async (
 
     const currentUser = auth(req)
     if (!currentUser || !compareCredentials(currentUser, credentialsObject)) {
-        res.statusCode = 401
+        res.statusCode = HTTPStatusCodes.UNAUTHORIZED
         res.setHeader('WWW-Authenticate', `Basic realm="${realm}"`)
         return { ok: false, result: res.end('401 Access Denied') }
     }
