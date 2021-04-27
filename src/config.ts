@@ -13,8 +13,12 @@ class Config {
     public get AWS_S3_EXPIRE_LIFTIME () {return readOptionalValue('AWS_S3_EXPIRE_LIFTIME', '60')}
 
     public get NEXT_AWSHOST () {return readOptionalValue('NEXT_AWSHOST')}
+
+    public get BASIC_AUTH_CREDENTIALS () {return readOptionalValue('BASIC_AUTH_CREDENTIALS', '')}
 }
 
+function readOptionalValue (key: string): string | undefined
+function readOptionalValue (key: string, fallback: string): string
 function readOptionalValue (key: string, fallback?: string) {
     const value = process.env[key]
     if (value === undefined) return fallback

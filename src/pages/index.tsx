@@ -9,10 +9,10 @@ import styles from '../styles/Home.module.css'
 export default function Home () {
     const [websiteURL, setWebsiteURL] = useState('https://czg.vercel.app')
 
-    const [imageURL, setImageURL] = useState(`/api/snapshot/desktop/index.img?url=${websiteURL}`)
+    const [imageURL, setImageURL] = useState(`/api/snapshot/desktop?url=${websiteURL}`)
 
     async function submitWebsiteURL () {
-        setImageURL(`/api/snapshot/desktop/index.img?url=${websiteURL}`)
+        setImageURL(`/api/snapshot/desktop?url=${websiteURL}`)
     }
 
     const handleInput: ChangeEventHandler<HTMLInputElement> = e => setWebsiteURL(e.target.value)

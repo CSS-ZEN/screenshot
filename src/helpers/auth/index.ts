@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from 'http'
+import {IncomingMessage, ServerResponse} from 'http'
 import auth from 'basic-auth'
 import HTTPStatusCodes from '../statusCode'
 import {
@@ -6,6 +6,7 @@ import {
     parseCredentials,
     AuthCredentials,
 } from './credentials'
+import CONFIG from 'src/config'
 
 export type MiddlewareOptions = {
     realm?: string
@@ -22,13 +23,13 @@ const basicAuthMiddleware = async (
     res: ServerResponse,
     {
         realm = 'protected',
-        users = []
+        users = [],
     }: MiddlewareOptions = {}) => {
     // Check if credentials are set up
-    const environmentCredentials = process.env.BASIC_AUTH_CREDENTIALS || ''
+    const environmentCredentials = CONFIG.BASIC_AUTH_CREDENTIALS
     if (environmentCredentials.length === 0 && users.length === 0) {
         // No credentials set up, continue rendering the page as normal
-        return { ok: true, result: null }
+        return {ok: true, result: null}
     }
 
     const credentialsObject: AuthCredentials =
@@ -40,9 +41,9 @@ const basicAuthMiddleware = async (
     if (!currentUser || !compareCredentials(currentUser, credentialsObject)) {
         res.statusCode = HTTPStatusCodes.UNAUTHORIZED
         res.setHeader('WWW-Authenticate', `Basic realm="${realm}"`)
-        return { ok: false, result: res.end('401 Access Denied') }
+        return {ok: false, result: res.end('401 Access Denied')}
     }
-    return { ok: true, result: null }
+    return {ok: true, result: null}
 }
 
 export default basicAuthMiddleware
