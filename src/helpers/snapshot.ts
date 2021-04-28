@@ -20,7 +20,7 @@ function generateKey (options: ISnapshotOptions) {
 
     const modePrefix = mode && `${mode}/`
     const {pathname, hostname} = new URL(url)
-    if (pathname && pathname !== '/') return `${modePrefix}${hostname}/${pathname}.jpg`
+    if (pathname && pathname !== '/') return `${modePrefix}${hostname}${pathname}.jpg`
     return `${modePrefix}${hostname}.jpg`
 }
 
